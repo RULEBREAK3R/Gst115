@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST 115 - Nigerian People and Culture (CBT Exam)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a5fb4;
+            --primary-dark: #0d3b7a;
+            --accent: #26a269;
+            --danger: #c01c28;
+            --warning: #e5a50a;
+            --bg: #f6f8fc;
+            --card: #ffffff;
+            --text: #1c1c1c;
+            --text-muted: #5e5e5e;
+            --border: #d0d7de;
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Header */
+        .exam-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .exam-header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .exam-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .exam-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .timer-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .timer-box.warning { background: rgba(229,165,10,0.3); animation: pulse 1s infinite; }
+        .timer-box.danger { background: rgba(192,28,40,0.3); animation: pulse 0.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .timer-icon { font-size: 1.2rem; }
+
+        /* Progress bar */
+        .progress-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px 24px 0;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+            padding: 60px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .start-screen h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+        }
+
+        .start-screen .institution {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+
+        .exam-info-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            text-align: left;
+            margin-bottom: 28px;
+        }
+
+        .exam-info-card h2 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--primary-dark);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .info-item .icon { font-size: 1.3rem; }
+
+        .instructions {
+            background: #fff8e6;
+            border-left: 4px solid var(--warning);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        .instructions ul { margin-left: 18px; margin-top: 8px; }
+        .instructions li { margin-bottom: 6px; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 16px rgba(26,95,180,0.3);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,95,180,0.4); }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: var(--text);
+        }
+
+        .btn-secondary:hover { background: #d0d7de; }
+
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        /* Question Card */
+        .question-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--card);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text);
+            width: 100%;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #f0f5ff;
+        }
+
+        .option-btn:focus {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: #e8f0fe;
+            color: var(--primary-dark);
+        }
+
+        .option-btn.correct {
+            border-color: var(--accent);
+            background: #e6f5ed;
+            color: var(--accent);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--danger);
+            background: #fdeaea;
+            color: var(--danger);
+        }
+
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg);
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn.selected .option-letter { background: var(--primary); color: white; }
+        .option-btn.correct .option-letter { background: var(--accent); color: white; }
+        .option-btn.incorrect .option-letter { background: var(--danger); color: white; }
+
+        .option-text { flex: 1; }
+
+        .feedback-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent), #1c7a4e);
+            color: white;
+            box-shadow: 0 4px 16px rgba(38,162,105,0.3);
+        }
+
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(38,162,105,0.4); }
+
+        /* Question Navigator */
+        .navigator {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        .navigator-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .navigator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: var(--card);
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .nav-dot:hover { border-color: var(--primary); }
+        .nav-dot:focus { outline: 3px solid var(--primary); outline-offset: 2px; }
+        .nav-dot.answered { background: var(--primary); color: white; border-color: var(--primary); }
+        .nav-dot.current { box-shadow: 0 0 0 3px var(--primary); }
+        .nav-dot.review { background: var(--warning); color: white; border-color: var(--warning); }
+
+        /* Review checkbox */
+        .review-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .review-toggle input { width: 18px; height: 18px; cursor: pointer; }
+
+        /* Result Screen */
+        .result-screen {
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .result-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 40px 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .result-title {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 16px 0;
+        }
+
+        .result-score span { font-size: 1.2rem; color: var(--text-muted); font-weight: 400; }
+
+        .result-message {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-box {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--bg);
+        }
+
+        .stat-value { font-size: 1.5rem; font-weight: 700; }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+
+        .stat-box.correct { background: #e6f5ed; }
+        .stat-box.correct .stat-value { color: var(--accent); }
+        .stat-box.incorrect { background: #fdeaea; }
+        .stat-box.incorrect .stat-value { color: var(--danger); }
+        .stat-box.unanswered { background: #fff8e6; }
+        .stat-box.unanswered .stat-value { color: var(--warning); }
+
+        /* Review mode */
+        .review-question {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .review-question .correct-ans { color: var(--accent); font-weight: 600; }
+        .review-question .your-ans { font-weight: 600; }
+        .review-question .your-ans.correct { color: var(--accent); }
+        .review-question .your-ans.wrong { color: var(--danger); }
+
+        .review-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .review-badge.correct { background: #e6f5ed; color: var(--accent); }
+        .review-badge.wrong { background: #fdeaea; color: var(--danger); }
+        .review-badge.unanswered { background: #fff8e6; color: var(--warning); }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
+        .live-region {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .exam-header-inner { flex-direction: column; align-items: flex-start; }
+            .timer-box { align-self: stretch; justify-content: center; }
+            .question-card { padding: 20px; }
+            .question-text { font-size: 1rem; }
+            .option-btn { padding: 14px 16px; }
+            .result-stats { grid-template-columns: 1fr; }
+            .nav-bar { flex-direction: column; }
+            .btn-nav { width: 100%; justify-content: center; }
+        }
+
+        /* Hidden */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="live-region" aria-live="polite" id="live-region"></div>
+
+    <!-- Header -->
+    <header class="exam-header" role="banner">
+        <div class="exam-header-inner">
+            <div>
+                <div class="exam-title">GST 115 — Nigerian People and Culture</div>
+                <div class="exam-subtitle">Lead City University | CBT Examination</div>
+            </div>
+            <div class="timer-box" id="timer-box" role="timer" aria-label="Time remaining">
+                <span class="timer-icon" aria-hidden="true">⏱️</span>
+                <span id="timer-display">30:00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progress-container" style="display:none;">
+        <div class="progress-info">
+            <span id="progress-text">Question 1 of 60</span>
+            <span id="progress-percent">2%</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemax="60" aria-valuemin="0">
+            <div class="progress-fill" id="progress-fill" style="width: 1.67%"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container">
+
+        <!-- START SCREEN -->
+        <section class="start-screen" id="start-screen" aria-label="Exam start screen">
+            <h1>GST 115 CBT Examination</h1>
+            <p class="institution">Lead City University Ibadan — Faculty of Management and Social Sciences</p>
+
+            <div class="exam-info-card">
+                <h2>📋 Exam Information</h2>
+                <div class="info-grid">
+                    <div class="info-item"><span class="icon">📚</span> <span>Course: GST 115</span></div>
+                    <div class="info-item"><span class="icon">📝</span> <span>Title: Nigerian People and Culture</span></div>
+                    <div class="info-item"><span class="icon">⏱️</span> <span>Duration: 30 minutes</span></div>
+                    <div class="info-item"><span class="icon">🔢</span> <span>Questions: 60 out of 100 (random)</span></div>
+                    <div class="info-item"><span class="icon">✅</span> <span>Type: Multiple Choice</span></div>
+                    <div class="info-item"><span class="icon">🎲</span> <span>Randomized each attempt</span></div>
+                </div>
+                <div class="instructions">
+                    <strong>Instructions:</strong>
+                    <ul>
+                        <li>Read each question carefully before selecting your answer.</li>
+                        <li>You can navigate between questions using the Previous/Next buttons.</li>
+                        <li>Use the question navigator to jump to any question.</li>
+                        <li>Mark questions for review if you want to revisit them.</li>
+                        <li>Click "Submit Exam" when you are finished. The exam auto-submits when time expires.</li>
+                        <li>Each new attempt will present a different random set of 60 questions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="start-btn" onclick="startExam()">
+                <span>🚀</span> Start Examination
+            </button>
+        </section>
+
+        <!-- EXAM SCREEN -->
+        <section class="exam-screen hidden" id="exam-screen" aria-label="Exam questions">
+            <div class="question-card" id="question-card">
+                <span class="question-number" id="question-number">Question 1 of 60</span>
+                <div class="question-text" id="question-text" tabindex="0"></div>
+                <div class="options-list" id="options-list" role="radiogroup" aria-label="Answer options"></div>
+                <label class="review-toggle">
+                    <input type="checkbox" id="review-check" onchange="toggleReview()">
+                    <span>Mark for review</span>
+                </label>
+            </div>
+
+            <div class="nav-bar">
+                <button class="btn btn-secondary btn-nav" id="prev-btn" onclick="prevQuestion()">
+                    <span>←</span> Previous
+                </button>
+                <button class="btn btn-submit btn-nav" id="submit-btn" onclick="confirmSubmit()">
+                    <span>✓</span> Submit Exam
+                </button>
+                <button class="btn btn-primary btn-nav" id="next-btn" onclick="nextQuestion()">
+                    Next <span>→</span>
+                </button>
+            </div>
+
+            <div class="navigator">
+                <div class="navigator-title">Question Navigator</div>
+                <div class="navigator-grid" id="navigator-grid"></div>
+            </div>
+        </section>
+
+        <!-- RESULT SCREEN -->
+        <section class="result-screen hidden" id="result-screen" aria-label="Exam results">
+            <div class="result-card">
+                <div class="result-emoji" id="result-emoji">🎓</div>
+                <h2 class="result-title" id="result-title">Exam Completed!</h2>
+                <div class="result-score" id="result-score">0<span>/60</span></div>
+                <p class="result-message" id="result-message"></p>
+                <div class="result-stats">
+                    <div class="stat-box correct">
+                        <div class="stat-value" id="stat-correct">0</div>
+                        <div class="stat-label">Correct</div>
+                    </div>
+                    <div class="stat-box incorrect">
+                        <div class="stat-value" id="stat-incorrect">0</div>
+                        <div class="stat-label">Incorrect</div>
+                    </div>
+                    <div class="stat-box unanswered">
+                        <div class="stat-value" id="stat-unanswered">0</div>
+                        <div class="stat-label">Unanswered</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="review-section" style="margin-top: 20px;"></div>
+
+            <button class="btn btn-primary" onclick="restartExam()" style="margin-top: 24px;">
+                <span>🔄</span> Retake Exam (New Random Questions)
+            </button>
+        </section>
+    </main>
+
+    <script>
+
+        // ==================== QUESTION BANK (100 Questions) ====================
+        const QUESTION_BANK = [
+            { id: 1, q: "The three major ethnic groups in Nigeria are", options: [{l:"a",t:"Hausa, Ibibio and Igbo"},{l:"b",t:"Igbo, Hausa and Ijaw"},{l:"c",t:"Yoruba, Igbo and Nupe"},{l:"d",t:"Hausa, Igbo and Yoruba"}], ans: "d" },
+            { id: 2, q: "Who coined the name Nigeria?", options: [{l:"a",t:"Obafemi Awolowo"},{l:"b",t:"Flora Lord"},{l:"c",t:"Lord Lugard"},{l:"d",t:"Flora Shaw"}], ans: "d" },
+            { id: 3, q: "The name Nigeria means", options: [{l:"a",t:"Nije area"},{l:"b",t:"Naija area"},{l:"c",t:"Area around Niger river"},{l:"d",t:"Naira area"}], ans: "c" },
+            { id: 4, q: "The Latin word colere means to", options: [{l:"a",t:"Cultivate"},{l:"b",t:"Promote"},{l:"c",t:"Instigate"},{l:"d",t:"Expatriate"}], ans: "a" },
+            { id: 5, q: "The primary tool of sharing and transmitting culture is", options: [{l:"a",t:"Language"},{l:"b",t:"Culture"},{l:"c",t:"Social media"},{l:"d",t:"Message"}], ans: "a" },
+            { id: 6, q: "The two aspects of culture are _______ and _______", options: [{l:"a",t:"ideational and material"},{l:"b",t:"material and non-material"},{l:"c",t:"organizational and ideational"},{l:"d",t:"organizational and technological"}], ans: "b" },
+            { id: 7, q: "An ethnic group is _______", options: [{l:"a",t:"a community or population made up of people who share an uncommon cultural background or descent"},{l:"b",t:"community or population made up of people who share a common cultural background or descent, language, origin and core territory"},{l:"c",t:"a community or population made up of people who share different cultural background or descent"},{l:"d",t:"None of these"}], ans: "b" },
+            { id: 8, q: "A process whereby an entire culture replaces a traditional cultural pattern in a large substantial scale is called", options: [{l:"a",t:"Enculturation"},{l:"b",t:"Acculturation"},{l:"c",t:"Cultural diffusion"},{l:"d",t:"Traditional culture"}], ans: "a" },
+            { id: 9, q: "Ideas about what in life seems important is called", options: [{l:"a",t:"Myths"},{l:"b",t:"Norms"},{l:"c",t:"Values"},{l:"d",t:"Cultures"}], ans: "c" },
+            { id: 10, q: "The practice of judging other peoples' culture as superior to one's culture is called", options: [{l:"a",t:"ethnocentrism"},{l:"b",t:"xenocentrism"},{l:"c",t:"monocentrism"},{l:"d",t:"monoecentric"}], ans: "b" },
+            { id: 11, q: "_______ is the process of learning your own group's culture.", options: [{l:"a",t:"Culturation"},{l:"b",t:"Acculturation"},{l:"c",t:"Enculturation"},{l:"d",t:"Socialization"}], ans: "c" },
+            { id: 12, q: "_______ is the increasing interaction and integration of activities, especially economic activities of human societies across the world.", options: [{l:"A",t:"Socialization"},{l:"B",t:"Enculturation"},{l:"C",t:"Social interaction"},{l:"D",t:"Globalization"}], ans: "D" },
+            { id: 13, q: "No culture is superior to others. This means that culture is", options: [{l:"a",t:"relative"},{l:"b",t:"social"},{l:"c",t:"adaptive"},{l:"d",t:"transmitted"}], ans: "a" },
+            { id: 14, q: "Aare Ona Kakanfo in the Yoruba traditional political system was the field marshal.", options: [{l:"a",t:"True"},{l:"b",t:"False"}], ans: "a" },
+            { id: 15, q: "Igbo society has no king", options: [{l:"a",t:"True"},{l:"b",t:"False"}], ans: "a" },
+            { id: 16, q: "Igbo traditional political system is", options: [{l:"a",t:"Heterogeneous"},{l:"b",t:"Ambitious"},{l:"c",t:"Egalitarian"},{l:"d",t:"Plural"}], ans: "c" },
+            { id: 17, q: "The Yoruba are child-centred.", options: [{l:"A",t:"True"},{l:"B",t:"False"}], ans: "A" },
+            { id: 18, q: "One of the following is not part of the Oyo Mesi in the Yoruba traditional political system", options: [{l:"a",t:"Laguna"},{l:"b",t:"Balogun"},{l:"c",t:"Akiniku"},{l:"d",t:"Samu"}], ans: "a" },
+            { id: 19, q: "The talakawa are known as the", options: [{l:"a",t:"Noble"},{l:"b",t:"slaves"},{l:"c",t:"commoners"},{l:"d",t:"heirs"}], ans: "c" },
+            { id: 20, q: "The definition of culture as 'that complex whole which includes knowledge, belief, art, laws, morals, customs and all other capabilities acquired by man as a member of a society' is given by", options: [{l:"a",t:"Immanuel Kant"},{l:"b",t:"Edward Taylor"},{l:"c",t:"Johann Gottfried Herde"},{l:"d",t:"Adekola Tegbe"}], ans: "b" },
+            { id: 21, q: "The study of the classification and its diffusion of culture is", options: [{l:"a",t:"Ethnology"},{l:"b",t:"Etymology"},{l:"c",t:"Ethymology"},{l:"d",t:"Ethnology"}], ans: "a" },
+            { id: 22, q: "Nigeria's ethnic group population is estimated as", options: [{l:"a",t:"250"},{l:"b",t:"371"},{l:"c",t:"470"},{l:"d",t:"337"}], ans: "b" },
+            { id: 23, q: "The three components of culture are", options: [{l:"a",t:"Technological, Ideological and Organizational"},{l:"b",t:"Material, Non material and Technological"},{l:"c",t:"Material, Non material and Immaterial"},{l:"d",t:"Technological, Material and Organizational"}], ans: "a" },
+            { id: 24, q: "Social norms are", options: [{l:"a",t:"increasing interaction and integration of activities across the world"},{l:"b",t:"a group's rules and standard of behavior expected by the society"},{l:"c",t:"structures of a society within which values and norms are taught and learned"},{l:"d",t:"ideas that seem to be important in the society"}], ans: "b" },
+            { id: 25, q: "_______ is the founder and ancestor of the Hausa ethnic group", options: [{l:"a",t:"Sultan"},{l:"b",t:"Bayajjida"},{l:"c",t:"Emir"},{l:"d",t:"Lamurudu"}], ans: "b" },
+            { id: 26, q: "The Nri version of origin is the most authentic in Igbo orthography and the ancestor of Igbo is", options: [{l:"a",t:"Nri"},{l:"b",t:"Egypt"},{l:"c",t:"Eri"},{l:"d",t:"Yanma"}], ans: "a" },
+            { id: 27, q: "A major benefit of the Christian mission bequeathed to Nigeria is", options: [{l:"a",t:"Entertainment"},{l:"b",t:"Technology"},{l:"c",t:"Democracy"},{l:"d",t:"Education"}], ans: "d" },
+            { id: 28, q: "The main forms of Islamic religion spread in Nigeria are", options: [{l:"a",t:"Education and Religion"},{l:"b",t:"Conquest and Education"},{l:"c",t:"Trade and Religion"},{l:"d",t:"Trade and Conquest"}], ans: "d" },
+            { id: 29, q: "Nigeria became independent of British colonial rule on _______ and became a Republic on _______", options: [{l:"a",t:"1st October 1960, 1st October 1963"},{l:"b",t:"1st January 1960, 1st February 1963"},{l:"c",t:"1st August 1960, 1st October 1963"},{l:"d",t:"1st October 1960, 1st September 1963"}], ans: "a" },
+            { id: 30, q: "The Nigeria/Biafra civil war was fought between", options: [{l:"A",t:"1965 and 1968"},{l:"B",t:"1970 and 1973"},{l:"C",t:"1967 and 1970"},{l:"D",t:"1964 and 1967"}], ans: "C" },
+            { id: 31, q: "The Atlantic Slave trade was finally abolished in the year", options: [{l:"A",t:"1860"},{l:"B",t:"1960"},{l:"C",t:"1885"},{l:"D",t:"1914"}], ans: "C" },
+            { id: 32, q: "_______ brothers traced the river to the Delta", options: [{l:"a",t:"The Lander brothers"},{l:"b",t:"The Everly brothers"},{l:"c",t:"The True brothers"},{l:"d",t:"The Seven brothers"}], ans: "a" },
+            { id: 33, q: "_______ is the founder and ancestor of the Yoruba and their original abode is", options: [{l:"a",t:"Oranmiyan, Ile-Ife"},{l:"b",t:"Oranmiyan, Oyo"},{l:"c",t:"Oduduwa, Oyo"},{l:"d",t:"Oduduwa, Ile-Ife"}], ans: "d" },
+            { id: 34, q: "The head of the Oyo Mesi was", options: [{l:"a",t:"Alaafin"},{l:"b",t:"Basorun"},{l:"c",t:"Balogun"},{l:"d",t:"Ogboni"}], ans: "b" },
+            { id: 35, q: "British colonial policy in Nigeria under Lord Lugard is referred to as", options: [{l:"a",t:"Colonial rule system"},{l:"b",t:"Direct rule system"},{l:"c",t:"Policy of assimilation"},{l:"d",t:"Indirect rule system"}], ans: "d" },
+            { id: 36, q: "Madawaki was the 'town administrator'. (True or False)", options: [{l:"a",t:"True"},{l:"b",t:"False"}], ans: "a" },
+            { id: 37, q: "The middle belt of Nigeria is situated in the _______ region", options: [{l:"a",t:"Middle belt"},{l:"b",t:"Forest"},{l:"c",t:"Savannah"},{l:"d",t:"Sahara"}], ans: "c" },
+            { id: 38, q: "The northern part of Nigeria is situated in the _______ and it is suitable for _______ and cattle rearing", options: [{l:"a",t:"Sahel Savannah, crop farming"},{l:"b",t:"Sudan Savannah, crop farming"},{l:"c",t:"Sahel Savannah, grain farming"},{l:"d",t:"Sudan Savannah, grain farming"}], ans: "d" },
+            { id: 39, q: "The riverine area of Niger Delta is noted for _______ resources and _______", options: [{l:"a",t:"gas and beer production"},{l:"b",t:"petroleum and fishing"},{l:"c",t:"agriculture gas and fishing agriculture"},{l:"d",t:"none of these"}], ans: "b" },
+            { id: 40, q: "Nigeria is divided into three physical regions by the _______ and _______", options: [{l:"a",t:"river Bayelsa and Niger"},{l:"b",t:"river Niger and Benue"},{l:"c",t:"river Benue and Bayelsa"},{l:"d",t:"South and East"}], ans: "b" },
+            { id: 41, q: "The confluence town in Nigeria is", options: [{l:"a",t:"Ibadan"},{l:"b",t:"Garki"},{l:"c",t:"Lokoja"},{l:"d",t:"Ugwa"}], ans: "c" },
+            { id: 42, q: "Nigeria is divided into _______ geopolitical zones.", options: [{l:"a",t:"Six"},{l:"b",t:"Eight"},{l:"c",t:"Ten"},{l:"d",t:"Four"}], ans: "a" },
+            { id: 43, q: "World Health Organization (WHO) put life expectancy in Nigeria at", options: [{l:"a",t:"48 years"},{l:"b",t:"54 years"},{l:"c",t:"35 years"},{l:"d",t:"40 years"}], ans: "b" },
+            { id: 44, q: "Nigeria is a federal republic. Federalism means", options: [{l:"a",t:"social unit with a decentralized power"},{l:"b",t:"political unit with a decentralized power surrounded by component states"},{l:"c",t:"political unit with a centre power surrounded by component states"},{l:"d",t:"social unit with a centre power surrounded by component states"}], ans: "b" },
+            { id: 45, q: "One of the following does not belong to Hausa Bokwoi", options: [{l:"a",t:"Daura"},{l:"b",t:"Katzina"},{l:"c",t:"Ibadan"},{l:"d",t:"Biran"}], ans: "c" },
+            { id: 46, q: "The Fulani speak _______ language", options: [{l:"a",t:"Fulfulde"},{l:"b",t:"English"},{l:"c",t:"Folan"},{l:"d",t:"Hausa"}], ans: "a" },
+            { id: 47, q: "Yoruba as an ethnic group has three versions of origin that are Egyptian, Mecca migration and Creation myth.", options: [{l:"A",t:"True"},{l:"B",t:"False"}], ans: "A" },
+            { id: 48, q: "_______ is the first European power to have contact with Nigeria", options: [{l:"a",t:"Spain"},{l:"b",t:"Portuguese"},{l:"c",t:"England"},{l:"d",t:"France"}], ans: "b" },
+            { id: 49, q: "The first European contact with Nigeria was through _______ in 1472", options: [{l:"a",t:"Benin"},{l:"b",t:"Yoruba"},{l:"c",t:"Igbo"},{l:"d",t:"Hausa"}], ans: "a" },
+            { id: 50, q: "Atlantic Slave Trade took about _______ years before it was abolished", options: [{l:"a",t:"300"},{l:"b",t:"200"},{l:"c",t:"100"},{l:"d",t:"500"}], ans: "a" },
+            { id: 51, q: "During the slave trade, Africa was needed both as market for raw material and finished goods.", options: [{l:"a",t:"True"},{l:"b",t:"False"}], ans: "a" },
+            { id: 52, q: "Christianity was introduced by the colonial masters to Nigeria through the _______ part of the country", options: [{l:"a",t:"Southern"},{l:"b",t:"Northern"},{l:"c",t:"Eastern"},{l:"d",t:"Western"}], ans: "a" },
+            { id: 53, q: "Igbo has five versions of origin. (True or False)", options: [{l:"a",t:"True"},{l:"b",t:"False"}], ans: "a" },
+            { id: 54, q: "Usman Dan Fodio launched his Islamic movement called _______ in the Northern Nigeria.", options: [{l:"a",t:"Ordinary War"},{l:"b",t:"Connection"},{l:"c",t:"Jihad"},{l:"d",t:"Religion prayer"}], ans: "c" },
+            { id: 55, q: "Plantation agriculture that took the labour of blacks had", options: [{l:"a",t:"petroleum, oil and gas as products"},{l:"b",t:"tobacco, sugar cane and cotton"},{l:"c",t:"beer, cigarette macaroni"},{l:"d",t:"mushroom chicken pizza"}], ans: "b" },
+            { id: 56, q: "_______ were signed by African rulers with European powers", options: [{l:"a",t:"Agreement"},{l:"b",t:"Mandate"},{l:"c",t:"Treaties"},{l:"d",t:"Ordinary Documents"}], ans: "c" },
+            { id: 57, q: "The Northern and Southern Protectorates of Nigeria were amalgamated in the year", options: [{l:"a",t:"1914"},{l:"b",t:"2012"},{l:"c",t:"2021"},{l:"d",t:"1960"}], ans: "a" },
+            { id: 58, q: "The Berlin Conference of 1884 that carved Nigeria and other African peoples during scramble and partition of Africa was to protect", options: [{l:"a",t:"British criminal interest"},{l:"b",t:"British commercial interest"},{l:"c",t:"British royal interest"},{l:"d",t:"British social interest"}], ans: "b" },
+            { id: 59, q: "Nigeria became independent of British colonial rule on", options: [{l:"a",t:"1st October 1959"},{l:"b",t:"1st October 1960"},{l:"c",t:"1st October 1971"},{l:"d",t:"1st October 1969"}], ans: "b" },
+            { id: 60, q: "Nigeria became a Republic on", options: [{l:"a",t:"1st October 1959"},{l:"b",t:"1st October 1963"},{l:"c",t:"1st October 1970"},{l:"d",t:"1st October 1969"}], ans: "b" },
+            { id: 61, q: "The practice of judging other peoples' culture as inferior is called", options: [{l:"a",t:"Yanga"},{l:"b",t:"Ako"},{l:"c",t:"Ridicule"},{l:"d",t:"Ethnocentrism"}], ans: "d" },
+            { id: 62, q: "Folkways indicate", options: [{l:"a",t:"Customary ways of the people"},{l:"b",t:"Road-path"},{l:"c",t:"Highway"},{l:"d",t:"Express"}], ans: "a" },
+            { id: 63, q: "Increasing interaction and integration of activities, especially economic activities of human societies across the world is called", options: [{l:"a",t:"Bulb"},{l:"b",t:"Globe"},{l:"c",t:"Globalization"},{l:"d",t:"Socialization"}], ans: "c" },
+            { id: 64, q: "Strong moral rule of behaviour whose violation evokes grievous sanction is called", options: [{l:"a",t:"Mores"},{l:"b",t:"Morse code"},{l:"c",t:"Morsel"},{l:"d",t:"Manna"}], ans: "a" },
+            { id: 65, q: "A group's rules and standard of behavior expected by the society is", options: [{l:"a",t:"Social norms"},{l:"b",t:"Ruler"},{l:"c",t:"Normal"},{l:"d",t:"Manner"}], ans: "a" },
+            { id: 66, q: "_______ are the structures of a society within which values and norms are taught and learned", options: [{l:"a",t:"Institution"},{l:"b",t:"School"},{l:"c",t:"College"},{l:"d",t:"Lead City"}], ans: "a" },
+            { id: 67, q: "A group of people sharing the same culture, language, can trace their ancestry to a common ancestor and have a core territory called their home is", options: [{l:"a",t:"Fura de nunu"},{l:"b",t:"Enthusiasm"},{l:"c",t:"Ethnic group"},{l:"d",t:"Formality"}], ans: "c" },
+            { id: 68, q: "The primary tool of sharing and transmitting culture is", options: [{l:"a",t:"Language"},{l:"b",t:"Gossip"},{l:"c",t:"Song"},{l:"d",t:"Dance"}], ans: "a" },
+            { id: 69, q: "_______ is the spread of cultural beliefs and social activities from one group of people to another.", options: [{l:"a",t:"Cultural diffusion"},{l:"b",t:"Religiousity"},{l:"c",t:"Linear fusion"},{l:"d",t:"Cultural fruiting"}], ans: "a" },
+            { id: 70, q: "The two aspects of culture are", options: [{l:"a",t:"Material and non-material"},{l:"b",t:"Maternal and patriarchal"},{l:"c",t:"Matrix and Nissan"},{l:"d",t:"Colonial"}], ans: "a" },
+            { id: 71, q: "British colonial rule policy in Nigeria is", options: [{l:"a",t:"Direct rule"},{l:"b",t:"Indirect rule"},{l:"c",t:"Directional rule"},{l:"d",t:"Differing rule"}], ans: "b" },
+            { id: 72, q: "The Nigeria/Biafra civil war ended in", options: [{l:"a",t:"1970"},{l:"b",t:"1918"},{l:"c",t:"1967"},{l:"d",t:"1990"}], ans: "a" },
+            { id: 73, q: "The Atlantic Slave trade started in the Caribbean in year", options: [{l:"a",t:"1860"},{l:"b",t:"1900"},{l:"c",t:"1517"},{l:"d",t:"1945"}], ans: "c" },
+            { id: 74, q: "The Lagos colony and Southern Protectorates of Nigeria were merged in the year", options: [{l:"a",t:"1914"},{l:"b",t:"1861"},{l:"c",t:"2013"},{l:"d",t:"1918"}], ans: "a" },
+            { id: 75, q: "Who coined the name Nigeria?", options: [{l:"a",t:"Florence Shaw"},{l:"b",t:"Falase"},{l:"c",t:"Tegbe"},{l:"d",t:"Ala"}], ans: "a" },
+            { id: 76, q: "The primary tool of sharing and transmitting culture is", options: [{l:"a",t:"Song"},{l:"b",t:"Language"},{l:"c",t:"Dance"},{l:"d",t:"Speech"}], ans: "b" },
+            { id: 77, q: "The two aspects of culture are", options: [{l:"a",t:"Material and Non-material"},{l:"b",t:"Concrete and water"},{l:"c",t:"Matter and liquid"},{l:"d",t:"kneeling and prostrating"}], ans: "a" },
+            { id: 78, q: "An ethnic group is", options: [{l:"a",t:"group eating same diet"},{l:"b",t:"group of people speaking same language, sharing same culture, having a core territory and can trace their origin to a common ancestor"},{l:"c",t:"a group living together"},{l:"d",t:"a group in communication"}], ans: "b" },
+            { id: 79, q: "A process whereby 'an entire culture replaces a traditional cultural pattern in a large substantial scale is called", options: [{l:"a",t:"Assimilation"},{l:"b",t:"aggrandization"},{l:"c",t:"socialization"},{l:"d",t:"diffusion"}], ans: "a" },
+            { id: 80, q: "The three components of culture are i. Technology ii. Ideology iii. Organizational", options: [{l:"a",t:"False"},{l:"b",t:"True"}], ans: "b" },
+            { id: 81, q: "Characteristics of culture include i. Learned/learnt ii. Shared iii. transmitted iv. dynamic v. continuous and vi. symbolic", options: [{l:"a",t:""},{l:"b",t:""},{l:"c",t:""},{l:"d",t:""}], ans: "a" },
+            { id: 82, q: "A group's standard rules of behavior expected by the society is", options: [{l:"a",t:"Norms"},{l:"b",t:"Documents"},{l:"c",t:"Rulers"},{l:"d",t:"Constitution"}], ans: "a" },
+            { id: 83, q: "_______ in cultural studies ways of the people whose violation evokes mild sanction", options: [{l:"a",t:"Mores"},{l:"b",t:"Folkways"},{l:"c",t:"Norms"},{l:"d",t:"Traditions"}], ans: "b" },
+            { id: 84, q: "The practice of studying peoples culture", options: [{l:"a",t:"ethnocentrism"},{l:"b",t:"ethnography"},{l:"c",t:"ethnology"},{l:"d",t:"ethnomedicine"}], ans: "b" },
+            { id: 85, q: "_______ means imbibing your own culture", options: [{l:"a",t:"Enculturation"},{l:"b",t:"coloration"},{l:"c",t:"Conditionality"},{l:"d",t:"Pizza"}], ans: "a" },
+            { id: 86, q: "_______ is total way of aggregate of a peoples ways of life, complex whole of activities involving custom, tradition, law, morals, arts, values and other capacities shared by a group of people", options: [{l:"a",t:"Culture"},{l:"b",t:"tradition"},{l:"c",t:"rules"},{l:"d",t:"law"}], ans: "a" },
+            { id: 87, q: "The political system referred to as Republic means", options: [{l:"a",t:"Government by representation"},{l:"b",t:"Government by the elites"},{l:"c",t:"Government by the military"},{l:"d",t:"Government by elders"}], ans: "a" },
+            { id: 88, q: "The original setting place in Igbo land is", options: [{l:"a",t:"Aguleri"},{l:"b",t:"Abeokuta"},{l:"c",t:"Enugu"},{l:"d",t:"Abakaliki"}], ans: "a" },
+            { id: 89, q: "_______ stopped the killing of twins in Calabar", options: [{l:"a",t:"Mary Slessor"},{l:"b",t:"Tinubu"},{l:"c",t:"Davido"},{l:"d",t:"Burner Boy"}], ans: "a" },
+            { id: 90, q: "From the 1914 till date, Nigeria has had _______ Constitutions", options: [{l:"a",t:"Eight"},{l:"b",t:"Ten"},{l:"c",t:"Twenty"},{l:"d",t:"Five"}], ans: "a" },
+            { id: 91, q: "The present Constitution being used by Nigeria is _______ Constitution", options: [{l:"a",t:"1900"},{l:"b",t:"1960"},{l:"c",t:"1922"},{l:"d",t:"1999"}], ans: "d" },
+            { id: 92, q: "_______ is the first Governor General of Nigeria", options: [{l:"a",t:"Goodluck Jonathan"},{l:"b",t:"Tiwa Savage"},{l:"c",t:"Lord Frederick Lugard"},{l:"d",t:"James Robertson"}], ans: "c" },
+            { id: 93, q: "The present ruling party in Nigeria is", options: [{l:"a",t:"PDP"},{l:"b",t:"ANPP"},{l:"c",t:"Labour"},{l:"d",t:"APC"}], ans: "d" },
+            { id: 94, q: "Tafawa Balewa was first _______ in Nigeria", options: [{l:"a",t:"Governor"},{l:"b",t:"Prime Minister"},{l:"c",t:"Senator"},{l:"d",t:"Vice chancellor"}], ans: "b" },
+            { id: 95, q: "Nnamdi Azikiwe was the first _______ in Nigeria", options: [{l:"a",t:"President"},{l:"b",t:"Minister"},{l:"c",t:"Senator"},{l:"d",t:"Chief"}], ans: "a" },
+            { id: 96, q: "The first coup in Nigeria was carried out by", options: [{l:"a",t:"5 Majors in the Army"},{l:"b",t:"10 Majors in the Army"},{l:"c",t:"20 Majors in the army"},{l:"d",t:"8 Majors in the Army"}], ans: "a" },
+            { id: 97, q: "There are _______ Senators in Nigeria", options: [{l:"a",t:"109"},{l:"b",t:"200"},{l:"c",t:"100"},{l:"d",t:"120"}], ans: "a" },
+            { id: 98, q: "There are _______ members of House of Representatives in Nigeria", options: [{l:"a",t:"190"},{l:"b",t:"360"},{l:"c",t:"400"},{l:"d",t:"250"}], ans: "b" },
+            { id: 99, q: "Nigeria operates a _______ legislature", options: [{l:"a",t:"Unicameral"},{l:"b",t:"Bicameral"},{l:"c",t:"tri-cameral"},{l:"d",t:"plural-cameral"}], ans: "b" },
+            { id: 100, q: "_______ means imbibing your own culture", options: [{l:"a",t:"Enculturation"},{l:"b",t:"coloration"},{l:"c",t:"Conditionality"},{l:"d",t:"Pizza"}], ans: "a" }
+        ];
+
+        // ==================== EXAM STATE ====================
+        const TOTAL_QUESTIONS = 60;
+        const TIME_LIMIT = 30 * 60; // 30 minutes in seconds
+        let examQuestions = [];
+        let currentIndex = 0;
+        let userAnswers = {}; // { questionIndex: optionLetter }
+        let reviewMarks = {}; // { questionIndex: true/false }
+        let timerInterval = null;
+        let timeRemaining = TIME_LIMIT;
+        let examSubmitted = false;
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function announce(text) {
+            document.getElementById('live-region').textContent = text;
+        }
+
+        // ==================== EXAM INITIALIZATION ====================
+        function startExam() {
+            // Randomly select 60 questions from 100
+            const shuffled = shuffleArray(QUESTION_BANK);
+            examQuestions = shuffled.slice(0, TOTAL_QUESTIONS);
+
+            // Reset state
+            currentIndex = 0;
+            userAnswers = {};
+            reviewMarks = {};
+            timeRemaining = TIME_LIMIT;
+            examSubmitted = false;
+
+            // UI transitions
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('exam-screen').classList.remove('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('progress-container').style.display = 'block';
+
+            // Build navigator
+            buildNavigator();
+
+            // Start timer
+            startTimer();
+
+            // Load first question
+            loadQuestion(0);
+
+            announce('Exam started. Question 1 of 60. 30 minutes remaining.');
+        }
+
+        function restartExam() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('progress-container').style.display = 'none';
+            clearInterval(timerInterval);
+            announce('Returning to start screen. Click Start Examination to begin a new attempt with different questions.');
+        }
+
+        // ==================== TIMER ====================
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            const timerBox = document.getElementById('timer-box');
+
+            timerDisplay.textContent = formatTime(timeRemaining);
+            timerBox.classList.remove('warning', 'danger');
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                timerDisplay.textContent = formatTime(timeRemaining);
+
+                if (timeRemaining <= 300 && timeRemaining > 60) {
+                    timerBox.classList.add('warning');
+                    timerBox.classList.remove('danger');
+                } else if (timeRemaining <= 60) {
+                    timerBox.classList.remove('warning');
+                    timerBox.classList.add('danger');
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    announce('Time is up. Exam will be auto-submitted.');
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // ==================== QUESTION LOADING ====================
+        function loadQuestion(index) {
+            if (index < 0 || index >= TOTAL_QUESTIONS) return;
+            currentIndex = index;
+
+            const q = examQuestions[index];
+            const card = document.getElementById('question-card');
+
+            // Animate card
+            card.style.animation = 'none';
+            card.offsetHeight; // trigger reflow
+            card.style.animation = 'fadeIn 0.4s ease';
+
+            // Update question text
+            document.getElementById('question-number').textContent = `Question ${index + 1} of ${TOTAL_QUESTIONS}`;
+            document.getElementById('question-text').textContent = q.q;
+
+            // Build options
+            const optionsList = document.getElementById('options-list');
+            optionsList.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.setAttribute('role', 'radio');
+                btn.setAttribute('aria-checked', 'false');
+                btn.setAttribute('tabindex', '0');
+
+                const isSelected = userAnswers[index] === opt.l;
+                if (isSelected) {
+                    btn.classList.add('selected');
+                    btn.setAttribute('aria-checked', 'true');
+                }
+
+                btn.innerHTML = `
+                    <span class="option-letter" aria-hidden="true">${opt.l.toUpperCase()}</span>
+                    <span class="option-text">${opt.t}</span>
+                `;
+
+                btn.addEventListener('click', () => selectOption(index, opt.l));
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectOption(index, opt.l);
+                    }
+                });
+
+                optionsList.appendChild(btn);
+            });
+
+            // Update review checkbox
+            document.getElementById('review-check').checked = !!reviewMarks[index];
+
+            // Update progress
+            updateProgress();
+
+            // Update navigator highlight
+            updateNavigatorHighlight();
+
+            // Update nav buttons
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('next-btn').innerHTML = index === TOTAL_QUESTIONS - 1 
+                ? 'Finish <span>→</span>' 
+                : 'Next <span>→</span>';
+
+            // Focus question text for screen readers
+            setTimeout(() => document.getElementById('question-text').focus(), 100);
+        }
+
+        function selectOption(qIndex, letter) {
+            userAnswers[qIndex] = letter;
+
+            // Update visual state
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, i) => {
+                const optLetter = examQuestions[qIndex].options[i].l;
+                btn.classList.remove('selected');
+                btn.setAttribute('aria-checked', 'false');
+                if (optLetter === letter) {
+                    btn.classList.add('selected');
+                    btn.setAttribute('aria-checked', 'true');
+                }
+            });
+
+            updateNavigator();
+            updateProgress();
+            announce(`Option ${letter.toUpperCase()} selected for question ${qIndex + 1}.`);
+        }
+
+        function toggleReview() {
+            const checked = document.getElementById('review-check').checked;
+            reviewMarks[currentIndex] = checked;
+            updateNavigator();
+            announce(checked ? `Question ${currentIndex + 1} marked for review.` : `Question ${currentIndex + 1} unmarked for review.`);
+        }
+
+        // ==================== NAVIGATION ====================
+        function nextQuestion() {
+            if (currentIndex < TOTAL_QUESTIONS - 1) {
+                loadQuestion(currentIndex + 1);
+            } else {
+                confirmSubmit();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                loadQuestion(currentIndex - 1);
+            }
+        }
+
+        // ==================== PROGRESS & NAVIGATOR ====================
+        function updateProgress() {
+            const answered = Object.keys(userAnswers).length;
+            const percent = Math.round((answered / TOTAL_QUESTIONS) * 100);
+
+            document.getElementById('progress-text').textContent = `Question ${currentIndex + 1} of ${TOTAL_QUESTIONS}`;
+            document.getElementById('progress-percent').textContent = `${answered}/${TOTAL_QUESTIONS} answered`;
+            document.getElementById('progress-fill').style.width = `${(answered / TOTAL_QUESTIONS) * 100}%`;
+            document.querySelector('.progress-bar').setAttribute('aria-valuenow', answered);
+        }
+
+        function buildNavigator() {
+            const grid = document.getElementById('navigator-grid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'nav-dot';
+                btn.textContent = i + 1;
+                btn.setAttribute('aria-label', `Go to question ${i + 1}`);
+                btn.addEventListener('click', () => loadQuestion(i));
+                grid.appendChild(btn);
+            }
+            updateNavigator();
+        }
+
+        function updateNavigator() {
+            const dots = document.querySelectorAll('.nav-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.remove('answered', 'review');
+                if (userAnswers[i] !== undefined) dot.classList.add('answered');
+                if (reviewMarks[i]) dot.classList.add('review');
+            });
+        }
+
+        function updateNavigatorHighlight() {
+            const dots = document.querySelectorAll('.nav-dot');
+            dots.forEach((dot, i) => dot.classList.toggle('current', i === currentIndex));
+        }
+
+        // ==================== SUBMIT & RESULTS ====================
+        function confirmSubmit() {
+            const unanswered = TOTAL_QUESTIONS - Object.keys(userAnswers).length;
+            let msg = 'Are you sure you want to submit your exam?';
+            if (unanswered > 0) {
+                msg += `\n\nYou have ${unanswered} unanswered question${unanswered > 1 ? 's' : ''}.`;
+            }
+            msg += '\n\nClick OK to submit, or Cancel to continue.';
+
+            if (confirm(msg)) {
+                submitExam();
+            }
+        }
+
+        function submitExam() {
+            if (examSubmitted) return;
+            examSubmitted = true;
+            clearInterval(timerInterval);
+
+            let correct = 0, incorrect = 0, unanswered = 0;
+            const reviewHTML = [];
+
+            for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+                const q = examQuestions[i];
+                const userAns = userAnswers[i];
+                const isCorrect = userAns === q.ans;
+                const isAnswered = userAns !== undefined;
+
+                if (!isAnswered) unanswered++;
+                else if (isCorrect) correct++;
+                else incorrect++;
+
+                // Build review item
+                const status = !isAnswered ? 'unanswered' : (isCorrect ? 'correct' : 'wrong');
+                const badgeText = !isAnswered ? 'Unanswered' : (isCorrect ? 'Correct' : 'Incorrect');
+                const userAnsText = isAnswered ? q.options.find(o => o.l === userAns)?.t || userAns : 'Not answered';
+                const correctText = q.options.find(o => o.l === q.ans)?.t || q.ans;
+
+                reviewHTML.push(`
+                    <div class="review-question">
+                        <span class="review-badge ${status}">${badgeText}</span>
+                        <div style="font-weight:600;margin-bottom:8px;">Q${i+1}. ${q.q}</div>
+                        <div style="color:var(--text-muted);font-size:0.9rem;">
+                            <div>Your answer: <span class="your-ans ${status}">${userAnsText}</span></div>
+                            <div>Correct answer: <span class="correct-ans">${correctText}</span></div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Show result screen
+            document.getElementById('exam-screen').classList.add('hidden');
+            document.getElementById('progress-container').style.display = 'none';
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            // Calculate score
+            const score = correct;
+            const percentage = Math.round((score / TOTAL_QUESTIONS) * 100);
+
+            // Update result display
+            document.getElementById('result-score').innerHTML = `${score}<span>/60</span>`;
+            document.getElementById('stat-correct').textContent = correct;
+            document.getElementById('stat-incorrect').textContent = incorrect;
+            document.getElementById('stat-unanswered').textContent = unanswered;
+
+            let emoji = '🎓', title = 'Exam Completed!', message = '';
+            if (percentage >= 70) { emoji = '🏆'; title = 'Excellent!'; message = 'Outstanding performance! You have a strong grasp of Nigerian People and Culture.'; }
+            else if (percentage >= 50) { emoji = '👍'; title = 'Good Job!'; message = 'Solid effort! Keep studying to improve further.'; }
+            else { emoji = '📚'; title = 'Keep Learning!'; message = 'More practice needed. Review the material and try again.'; }
+
+            document.getElementById('result-emoji').textContent = emoji;
+            document.getElementById('result-title').textContent = title;
+            document.getElementById('result-message').textContent = message;
+
+            // Show review section
+            document.getElementById('review-section').innerHTML = `
+                <h3 style="margin-bottom:16px;text-align:center;">Question Review</h3>
+                ${reviewHTML.join('')}
+            `;
+
+            announce(`Exam submitted. You scored ${score} out of 60. ${correct} correct, ${incorrect} incorrect, ${unanswered} unanswered.`);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('exam-screen').classList.contains('hidden')) return;
+
+            if (e.key === 'ArrowRight' || e.key === 'n') nextQuestion();
+            if (e.key === 'ArrowLeft' || e.key === 'p') prevQuestion();
+            if (e.key >= '1' && e.key <= '4') {
+                const idx = parseInt(e.key) - 1;
+                const q = examQuestions[currentIndex];
+                if (q.options[idx]) selectOption(currentIndex, q.options[idx].l);
+            }
+        });
+    </script>
+</body>
+</html>
